@@ -15,6 +15,8 @@ export async function loginAdmin(formData: FormData) {
     cookieStore.set('admin_token', password, {
       httpOnly: true,
       sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+      path: '/',
       maxAge: 60 * 60 * 24 * 30,
     })
     redirect('/admin/dashboard')
