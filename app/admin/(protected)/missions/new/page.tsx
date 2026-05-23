@@ -59,7 +59,7 @@ export default function NewMissionPage() {
               name="description"
               rows={2}
               placeholder="미션에 대한 추가 설명을 입력하세요"
-              className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-400 resize-none"
+              className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-400 text-gray-700 resize-none"
             />
           </div>
 
