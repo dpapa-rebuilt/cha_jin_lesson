@@ -16,6 +16,8 @@ export interface Completion {
   id: number
   mission_id: number
   status: 'pending' | 'approved' | 'rejected'
+  note: string | null
+  reject_reason: string | null
   completed_at: string
   approved_at: string | null
 }

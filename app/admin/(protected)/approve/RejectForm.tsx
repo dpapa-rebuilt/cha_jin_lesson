@@ -22,7 +22,7 @@ export default function RejectForm({ completionId }: { completionId: number }) {
       <form action={rejectCompletion.bind(null, completionId)} className="space-y-2">
         <textarea
           name="reason"
-          placeholder="거절 이유를 알려주세요... (선택 사항)"
+          placeholder="아이에게 전할 말을 남겨주세요. 예: 다음엔 문제 번호도 적어줘 (선택 사항)"
           rows={2}
           className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-700 outline-none focus:ring-2 focus:ring-red-200 resize-none bg-gray-50"
         />

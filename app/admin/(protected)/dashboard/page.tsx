@@ -41,13 +41,13 @@ export default async function AdminDashboard() {
           <p className="text-4xl font-black text-orange-500 mt-1">{balance.toLocaleString()}</p>
           <p className="text-gray-400 text-sm">포인트</p>
         </div>
-        <div className="bg-white rounded-2xl p-5 shadow text-center">
-          <p className="text-sm text-gray-500">승인 대기 중</p>
-          <p className="text-4xl font-black text-yellow-500 mt-1">{pendingCount}</p>
-          <p className="text-gray-400 text-sm">건</p>
+        <div className={`rounded-2xl p-5 shadow text-center ${pendingCount > 0 ? 'bg-orange-500' : 'bg-white'}`}>
+          <p className={`text-sm ${pendingCount > 0 ? 'text-orange-100' : 'text-gray-500'}`}>승인 대기 중</p>
+          <p className={`text-4xl font-black mt-1 ${pendingCount > 0 ? 'text-white' : 'text-yellow-500'}`}>{pendingCount}</p>
+          <p className={`text-sm ${pendingCount > 0 ? 'text-orange-200' : 'text-gray-400'}`}>건</p>
           {pendingCount > 0 && (
-            <Link href="/admin/approve" className="mt-2 inline-block text-xs text-orange-500 underline">
-              승인하러 가기 →
+            <Link href="/admin/approve" className="mt-2 inline-block text-xs text-white underline font-semibold">
+              지금 확인하기 →
             </Link>
           )}
         </div>

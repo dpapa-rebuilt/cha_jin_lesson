@@ -22,6 +22,8 @@ export default function MissionCard({ mission, completion: initialCompletion }: 
         id: 0,
         mission_id: mission.id,
         status: 'pending',
+        note: null,
+        reject_reason: null,
         completed_at: new Date().toISOString(),
         approved_at: null,
       })
@@ -89,23 +91,37 @@ export default function MissionCard({ mission, completion: initialCompletion }: 
         )}
 
         {/* 완료 후 상태 */}
-        {completion?.status === 'pending' && (
-          <div className="w-full bg-yellow-50 text-yellow-600 font-semibold py-2.5 rounded-xl text-center border border-yellow-200 text-sm">
-            승인 기다리는 중...
-          </div>
-        )}
+        {completion?.status === 'pending' && (() => {
+          const waitingOver24h = Date.now() - new Date(completion.completed_at).getTime() > 24 * 60 * 60 * 1000
+          return (
+            <div className="w-full bg-yellow-50 border border-yellow-200 rounded-xl px-4 py-2.5 text-center space-y-1">
+              <p className="text-yellow-600 font-semibold text-sm">아빠한테 보냈어요! 기다리는 중이에요 👀</p>
+              {waitingOver24h && (
+                <p className="text-yellow-500 text-xs">아빠가 확인 중이에요! 조금만 기다려요 ⏰</p>
+              )}
+            </div>
+          )
+        })()}
         {completion?.status === 'approved' && (
           <div className="w-full bg-green-50 text-green-600 font-semibold py-2.5 rounded-xl text-center border border-green-200 text-sm">
-            완료! 포인트 적립됨
+            야호! +{mission.points} 포인트 받았어요 🎉
           </div>
         )}
         {completion?.status === 'rejected' && (
-          <button
-            onClick={() => { setCompletion(null); setShowNoteForm(true) }}
-            className="w-full bg-gray-100 hover:bg-orange-500 hover:text-white text-gray-500 font-bold py-2.5 rounded-xl transition-all text-sm"
-          >
-            다시 도전하기
-          </button>
+          <div className="space-y-2">
+            {completion.reject_reason && (
+              <div className="bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-600">
+                <span className="font-semibold text-gray-500">아빠 메시지 💬</span>
+                <p className="mt-0.5">{completion.reject_reason}</p>
+              </div>
+            )}
+            <button
+              onClick={() => { setCompletion(null); setShowNoteForm(true) }}
+              className="w-full bg-gray-100 hover:bg-orange-500 hover:text-white text-gray-500 font-bold py-2.5 rounded-xl transition-all text-sm"
+            >
+              아빠가 메시지 남겼어요. 다시 도전해볼까요?
+            </button>
+          </div>
         )}
       </div>
     </div>
