@@ -29,7 +29,7 @@ export default async function AdminLoginPage({
             placeholder="비밀번호"
             required
             autoFocus
-            className="w-full border border-gray-300 rounded-xl px-4 py-3 text-lg outline-none focus:ring-2 focus:ring-orange-400"
+            className="w-full border border-gray-300 rounded-xl px-4 py-3 text-lg text-gray-700 outline-none focus:ring-2 focus:ring-orange-400"
           />
 
           {hasError && (
