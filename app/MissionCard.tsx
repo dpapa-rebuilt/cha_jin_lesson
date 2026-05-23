@@ -101,7 +101,7 @@ export default function MissionCard({ mission, completion: initialCompletion }: 
         )}
         {completion?.status === 'rejected' && (
           <button
-            onClick={() => setShowNoteForm(true)}
+            onClick={() => { setCompletion(null); setShowNoteForm(true) }}
             className="w-full bg-gray-100 hover:bg-orange-500 hover:text-white text-gray-500 font-bold py-2.5 rounded-xl transition-all text-sm"
           >
             다시 도전하기

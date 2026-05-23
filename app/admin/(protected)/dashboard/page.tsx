@@ -107,11 +107,16 @@ export default async function AdminDashboard() {
                 </p>
                 <p className="text-xs text-gray-400">{mission.type === 'daily' ? '매일' : mission.type === 'weekly' ? '매주' : mission.type === 'monthly' ? '매월' : '1회성'} · {mission.points}포인트</p>
               </div>
-              <form action={toggleMission.bind(null, mission.id, !mission.is_active)}>
-                <button type="submit" className={`text-xs px-3 py-1 rounded-full font-semibold transition ${mission.is_active ? 'bg-gray-100 text-gray-500 hover:bg-red-50 hover:text-red-500' : 'bg-green-50 text-green-500 hover:bg-green-100'}`}>
-                  {mission.is_active ? '비활성화' : '활성화'}
-                </button>
-              </form>
+              <div className="flex items-center gap-2">
+                <Link href={`/admin/missions/${mission.id}/edit`} className="text-xs px-3 py-1 rounded-full font-semibold bg-blue-50 text-blue-500 hover:bg-blue-100 transition">
+                  수정
+                </Link>
+                <form action={toggleMission.bind(null, mission.id, !mission.is_active)}>
+                  <button type="submit" className={`text-xs px-3 py-1 rounded-full font-semibold transition ${mission.is_active ? 'bg-gray-100 text-gray-500 hover:bg-red-50 hover:text-red-500' : 'bg-green-50 text-green-500 hover:bg-green-100'}`}>
+                    {mission.is_active ? '비활성화' : '활성화'}
+                  </button>
+                </form>
+              </div>
             </div>
           ))}
         </div>

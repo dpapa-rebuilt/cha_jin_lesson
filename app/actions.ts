@@ -68,6 +68,41 @@ export async function createMission(formData: FormData) {
   redirect('/admin/dashboard')
 }
 
+export async function updateMission(missionId: number, formData: FormData) {
+  if (!(await isAdmin())) redirect('/admin')
+
+  const title = formData.get('title') as string
+  const description = (formData.get('description') as string) || null
+  const type = formData.get('type') as string
+  const points = parseInt(formData.get('points') as string)
+  const dueDate = (formData.get('due_date') as string) || null
+
+  let recurrenceRule: object | null = null
+  if (type === 'weekly') {
+    const dayOfWeek = parseInt(formData.get('day_of_week') as string)
+    recurrenceRule = { dayOfWeek }
+  } else if (type === 'monthly') {
+    const week = formData.get('week') as string
+    const dayOfWeek = parseInt(formData.get('day_of_week') as string)
+    recurrenceRule = { week, dayOfWeek }
+  }
+
+  await sql`
+    UPDATE missions
+    SET title = ${title},
+        description = ${description},
+        type = ${type},
+        recurrence_rule = ${recurrenceRule ? JSON.stringify(recurrenceRule) : null},
+        points = ${points},
+        due_date = ${dueDate}
+    WHERE id = ${missionId}
+  `
+
+  revalidatePath('/')
+  revalidatePath('/admin/dashboard')
+  redirect('/admin/dashboard')
+}
+
 export async function toggleMission(missionId: number, isActive: boolean) {
   if (!(await isAdmin())) redirect('/admin')
   await sql`UPDATE missions SET is_active = ${isActive} WHERE id = ${missionId}`
