@@ -49,7 +49,7 @@ export default async function SpendPage() {
               name="description"
               required
               placeholder="예: 레고 세트, 아이스크림"
-              className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-400"
+              className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-400 text-gray-700"
             />
           </div>
 
@@ -65,7 +65,7 @@ export default async function SpendPage() {
                 min="1"
                 max={balance}
                 placeholder="예: 500"
-                className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-400 pr-16"
+                className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-400 text-gray-700 pr-16"
               />
               <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 font-semibold">
                 포인트

@@ -48,7 +48,7 @@ export default function NewMissionPage() {
               name="title"
               required
               placeholder="예: 글 읽고 답하기"
-              className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-400"
+              className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-400 text-gray-700"
             />
           </div>
 
@@ -94,7 +94,7 @@ export default function NewMissionPage() {
           {type === 'weekly' && (
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">요일 선택 *</label>
-              <select name="day_of_week" required className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-400">
+              <select name="day_of_week" required className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-400 text-gray-700">
                 {DAYS.map((d) => (
                   <option key={d.value} value={d.value}>{d.label}</option>
                 ))}
@@ -107,7 +107,7 @@ export default function NewMissionPage() {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">주 선택 *</label>
-                <select name="week" required className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-400">
+                <select name="week" required className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-400 text-gray-700">
                   {WEEKS.map((w) => (
                     <option key={w.value} value={w.value}>{w.label}</option>
                   ))}
@@ -115,7 +115,7 @@ export default function NewMissionPage() {
               </div>
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">요일 선택 *</label>
-                <select name="day_of_week" required className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-400">
+                <select name="day_of_week" required className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-400 text-gray-700">
                   {DAYS.map((d) => (
                     <option key={d.value} value={d.value}>{d.label}</option>
                   ))}
@@ -131,7 +131,7 @@ export default function NewMissionPage() {
               <input
                 type="date"
                 name="due_date"
-                className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-400"
+                className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-400 text-gray-700"
               />
             </div>
           )}
@@ -146,7 +146,7 @@ export default function NewMissionPage() {
                 required
                 min="1"
                 placeholder="예: 50"
-                className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-400 pr-16"
+                className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-400 text-gray-700 pr-16"
               />
               <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 font-semibold">
                 포인트
