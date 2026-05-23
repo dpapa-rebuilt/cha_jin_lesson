@@ -1,7 +1,8 @@
 export const dynamic = 'force-dynamic'
 
 import { sql } from '@/lib/db'
-import { approveCompletion, rejectCompletion } from '@/app/actions'
+import { approveCompletion } from '@/app/actions'
+import RejectForm from './RejectForm'
 import Link from 'next/link'
 
 interface PendingRow {
@@ -9,6 +10,7 @@ interface PendingRow {
   mission_title: string
   mission_points: number
   completed_at: string
+  note: string | null
 }
 
 export default async function ApprovePage() {
@@ -17,12 +19,13 @@ export default async function ApprovePage() {
       c.id AS completion_id,
       m.title AS mission_title,
       m.points AS mission_points,
-      c.completed_at
+      c.completed_at,
+      c.note
     FROM completions c
     JOIN missions m ON m.id = c.mission_id
     WHERE c.status = 'pending'
     ORDER BY c.completed_at ASC
-  ` as PendingRow[]
+  ` as unknown as PendingRow[]
 
   return (
     <div className="space-y-6">
@@ -43,12 +46,17 @@ export default async function ApprovePage() {
         <div className="space-y-3">
           {rows.map((row) => (
             <div key={row.completion_id} className="bg-white rounded-2xl shadow p-5">
-              <div className="flex items-start justify-between gap-4 mb-4">
-                <div>
+              <div className="flex items-start justify-between gap-4 mb-3">
+                <div className="flex-1">
                   <p className="font-bold text-gray-800 text-lg">{row.mission_title}</p>
-                  <p className="text-sm text-gray-400 mt-0.5">
-                    완료 시각: {new Date(row.completed_at).toLocaleString('ko-KR')}
+                  <p className="text-xs text-gray-400 mt-0.5">
+                    {new Date(row.completed_at).toLocaleString('ko-KR')}
                   </p>
+                  {row.note && (
+                    <div className="mt-2 bg-amber-50 border border-amber-100 rounded-xl px-3 py-2 text-sm text-amber-800">
+                      💬 &ldquo;{row.note}&rdquo;
+                    </div>
+                  )}
                 </div>
                 <div className="text-right shrink-0">
                   <p className="font-black text-orange-500 text-xl">+{row.mission_points}</p>
@@ -56,23 +64,18 @@ export default async function ApprovePage() {
                 </div>
               </div>
 
-              <div className="flex gap-2">
+              <div className="flex gap-2 items-start">
                 <form action={approveCompletion.bind(null, row.completion_id, row.mission_points)} className="flex-1">
                   <button
                     type="submit"
-                    className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2.5 rounded-xl transition"
+                    className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2.5 rounded-xl transition text-sm"
                   >
                     승인하기
                   </button>
                 </form>
-                <form action={rejectCompletion.bind(null, row.completion_id)} className="flex-1">
-                  <button
-                    type="submit"
-                    className="w-full bg-gray-100 hover:bg-red-50 hover:text-red-500 text-gray-500 font-bold py-2.5 rounded-xl transition"
-                  >
-                    거절하기
-                  </button>
-                </form>
+                <div className="flex-1">
+                  <RejectForm completionId={row.completion_id} />
+                </div>
               </div>
             </div>
           ))}

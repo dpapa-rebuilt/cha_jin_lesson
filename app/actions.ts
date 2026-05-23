@@ -77,10 +77,10 @@ export async function toggleMission(missionId: number, isActive: boolean) {
 
 // ── 완료 신청 (아이) ───────────────────────────────────
 
-export async function submitCompletion(missionId: number) {
+export async function submitCompletion(missionId: number, note: string) {
   await sql`
-    INSERT INTO completions (mission_id, status)
-    VALUES (${missionId}, 'pending')
+    INSERT INTO completions (mission_id, status, note)
+    VALUES (${missionId}, 'pending', ${note || null})
   `
   revalidatePath('/')
 }
@@ -106,12 +106,14 @@ export async function approveCompletion(completionId: number, points: number) {
   revalidatePath('/')
 }
 
-export async function rejectCompletion(completionId: number) {
+export async function rejectCompletion(completionId: number, formData: FormData) {
   if (!(await isAdmin())) redirect('/admin')
+
+  const reason = (formData.get('reason') as string) || null
 
   await sql`
     UPDATE completions
-    SET status = 'rejected'
+    SET status = 'rejected', reject_reason = ${reason}
     WHERE id = ${completionId}
   `
 
