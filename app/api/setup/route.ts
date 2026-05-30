@@ -21,6 +21,8 @@ export async function GET() {
       id SERIAL PRIMARY KEY,
       mission_id INTEGER NOT NULL REFERENCES missions(id),
       status VARCHAR(20) DEFAULT 'pending',
+      note TEXT,
+      reject_reason TEXT,
       completed_at TIMESTAMPTZ DEFAULT NOW(),
       approved_at TIMESTAMPTZ
     )
